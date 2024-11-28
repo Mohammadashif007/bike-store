@@ -4,15 +4,17 @@ A backend application design for manage bike Order, Inventory and calculate reve
 
 ## Features
 
--   **Bike Inventory Management:** Add, update, retrieve and delete bike details.
--   **Order Management:** Create orders, manage product quantities and automatically update bike inventory.
--   **Revenue Calculation:** Calculate revenue dynamically.
--   **Validation:** Uses zod for robust data validation to ensure accurate and consistent data entry.
--   **Error Handling:** Effective error handling for a smooth application flow.
+- **Bike Inventory Management:** Add, update, retrieve and delete bike details.
+- **Order Management:** Create orders, manage product quantities and automatically update bike inventory.
+- **Revenue Calculation:** Calculate revenue dynamically.
+- **Validation:** Uses zod for robust data validation to ensure accurate and consistent data entry.
+- **Error Handling:** Effective error handling for a smooth application flow.
 
 ## Technology Used:
 
--**Backend:** Node.js, Express -**Database:** MongoDB, Mongoose(ODM) -**Validation:** Zod -**Language:** TypeScript
+- **Backend:** Node.js, Express
+- **Database:** MongoDB, Mongoose(ODM) 
+- **Validation:** Zod -**Language:** TypeScript
 
 ***
 

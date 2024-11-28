@@ -26,15 +26,37 @@ const updateDataIntoDB = async (id: string, data: Partial<TBike>) => {
 };
 
 // ! delete data from db
-const deleteDataFromDB = async(id: string) => {
+const deleteDataFromDB = async (id: string) => {
     const result = await Bike.findByIdAndDelete(id);
     return result;
-}
+};
+
+// ! update inventory into db
+
+const updateInventory = async (id: string, orderQuantity: number) => {
+    const bike = await Bike.findById(id);
+    if (!bike) {
+        throw new Error("Product not found");
+    }
+    if (bike.quantity < orderQuantity) {
+        throw new Error("Insufficient Stoke");
+    }
+
+    // ! update inventory count
+    bike.quantity -= orderQuantity;
+
+    // ! update inStock status
+    bike.inStock = bike.quantity > 0;
+
+    const updateBike = await bike.save();
+    return updateBike;
+};
 
 export const BikeServices = {
     createBikeIntoDB,
     getAllBikesFromDB,
     getSingleBikeFromDB,
     updateDataIntoDB,
-    deleteDataFromDB
+    deleteDataFromDB,
+    updateInventory
 };

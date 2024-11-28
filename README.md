@@ -24,9 +24,9 @@ Follow the step below to set up the project locally
 
 Ensure the following software installed on your system
 
--   Node.js
--   MongoDB
--   Git
+- Node.js
+- MongoDB
+- Git
 
 ***
 

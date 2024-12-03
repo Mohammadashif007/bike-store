@@ -1,4 +1,4 @@
-# Bike Shop Application
+# Bike Store
 
 A backend application design for manage bike Order, Inventory and calculate revenue using TypeScript, Mongoose, Express and MongoDB.
 

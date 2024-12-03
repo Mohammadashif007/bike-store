@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.post("/", BikeControllers.createBike);
 router.get("/", BikeControllers.getAllBikes);
-router.get("/:bikeId", BikeControllers.getSingleBike);
-router.put("/:bikeId", BikeControllers.updateData);
-router.delete("/:bikeId", BikeControllers.deleteData);
+router.get("/:productId", BikeControllers.getSingleBike);
+router.put("/:productId", BikeControllers.updateData);
+router.delete("/:productId", BikeControllers.deleteData);
 
 export const BikeRoutes = router;

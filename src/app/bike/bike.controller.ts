@@ -1,12 +1,11 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { BikeServices } from "./bike.service";
 import { bikeValidation } from "./bike.validation";
 
 // ! save data into mongodb database
-const createBike = async (req: Request, res: Response) => {
+const createBike = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { bike } = req.body;
-        console.log(bike);
         const validatedBikeData =
             bikeValidation.bikeValidationSchema.parse(bike);
         const result = await BikeServices.createBikeIntoDB(validatedBikeData);
@@ -16,85 +15,92 @@ const createBike = async (req: Request, res: Response) => {
             data: result,
         });
     } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: error.message || "Something went wrong",
-            error: error,
-        });
+        next(error);
     }
 };
 
 // ! Retrieve all data from mongodb database
-const getAllBikes = async (req: Request, res: Response) => {
+const getAllBikes = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const result = await BikeServices.getAllBikesFromDB();
-        res.status(200).json({
-            success: true,
-            message: "Bikes retrieved successfully",
-            data: result,
-        });
+        if (result.length === 0) {
+            res.status(404).json({
+                success: false,
+                message: "No bikes found",
+            });
+        } else {
+            res.status(200).json({
+                success: true,
+                message: "Bikes retrieved successfully",
+                data: result,
+            });
+        }
     } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: error.message || "Something went wrong",
-            error: error,
-        });
+        next(error);
     }
 };
 
 // ! Retrieve single data from mongodb database
-const getSingleBike = async (req: Request, res: Response) => {
+const getSingleBike = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     try {
-        const { bikeId } = req.params;
-        const result = await BikeServices.getSingleBikeFromDB(bikeId);
+        const { productId } = req.params;
+        const result = await BikeServices.getSingleBikeFromDB(productId);
+        if (!result) {
+            res.status(404).json({
+                success: false,
+                message: `Bike with ${productId} is not found`,
+            });
+        }
         res.status(200).json({
             success: true,
             message: "Bike retrieved successfully",
             data: result,
         });
     } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: error.message || "Something went wrong",
-            error: error,
-        });
+        next(error);
     }
 };
 
 // ! Update bike data into database
-const updateData = async (req: Request, res: Response) => {
+const updateData = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { bikeId } = req.params;
+        const { productId } = req.params;
         const { bike } = req.body;
         const validatedData =
             bikeValidation.bikeUpdateValidationSchema.parse(bike);
         const result = await BikeServices.updateDataIntoDB(
-            bikeId,
+            productId,
             validatedData
         );
+        if (!result) {
+            res.status(404).json({
+                success: false,
+                message: `Bike with this ${productId} not found`,
+            });
+        }
         res.status(200).json({
             success: true,
             message: "Bike updated successfully",
             data: result,
         });
     } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: error.message || "Something went wrong",
-            error: error,
-        });
+        next(error);
     }
 };
 
 // ! delete bike data
-const deleteData = async (req: Request, res: Response) => {
+const deleteData = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { bikeId } = req.params;
-        const result = await BikeServices.deleteDataFromDB(bikeId);
+        const { productId } = req.params;
+        const result = await BikeServices.deleteDataFromDB(productId);
         if (!result) {
-            res.status(500).json({
+            res.status(404).json({
                 success: false,
-                message: "Bike not found",
+                message: `Bike with this ${productId} not found`,
             });
         } else {
             res.status(200).json({
@@ -104,11 +110,7 @@ const deleteData = async (req: Request, res: Response) => {
             });
         }
     } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: error.message || "Something went wrong",
-            error: error,
-        });
+        next(error);
     }
 };
 

@@ -21,7 +21,9 @@ const getSingleBikeFromDB = async (id: string) => {
 
 // ! update data
 const updateDataIntoDB = async (id: string, data: Partial<TBike>) => {
+    console.log(id);
     const result = await Bike.findByIdAndUpdate(id, data, { new: true });
+    console.log(result);
     return result;
 };
 
@@ -39,7 +41,7 @@ const updateInventory = async (id: string, orderQuantity: number) => {
         throw new Error("Product not found");
     }
     if (bike.quantity < orderQuantity) {
-        throw new Error("Insufficient Stoke");
+        throw new Error("Insufficient Stock");
     }
 
     // ! update inventory count

@@ -1,44 +1,58 @@
-import { Request, response, Response } from "express";
+import { NextFunction, Request, response, Response } from "express";
 import { OrderServices } from "./order.service";
 import { BikeServices } from "../bike/bike.service";
+import orderValidationSchema from "./order.validation";
 
-const createOrder = async (req: Request, res: Response) => {
+// ! create an orders
+const createOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { order } = req.body;
-        const result = await OrderServices.createOrderIntoDB(order);
+        const validatedOrderData = orderValidationSchema.parse(order);
         await BikeServices.updateInventory(order.product, order.quantity);
+        const result = await OrderServices.createOrderIntoDB(
+            validatedOrderData
+        );
         res.status(200).json({
             success: true,
             message: "Order created successfully",
             data: result,
         });
     } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: error.message || "Something went wrong",
-            error: error,
-        });
+        next(error);
     }
 };
 
-const getAllOrders = async (req: Request, res: Response) => {
+// ! retrieve all orders
+const getAllOrders = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     try {
         const result = await OrderServices.getAllOrdersFromDB();
-        res.status(200).json({
-            success: true,
-            message: "All order retrieve successfully",
-            data: result,
-        });
+        if (result.length === 0) {
+            res.status(404).json({
+                success: false,
+                message: "Order not found",
+            });
+        } else {
+            res.status(200).json({
+                success: true,
+                message: "All order retrieve successfully",
+                data: result,
+            });
+        }
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Product not found",
-            error: error,
-        });
+        next(error);
     }
 };
 
-const getTotalRevenue = async (req: Request, res: Response) => {
+// ! calculate total revenue
+const getTotalRevenue = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     try {
         const result = await OrderServices.calculateTotalRevenue();
         res.status(200).json({
@@ -47,11 +61,7 @@ const getTotalRevenue = async (req: Request, res: Response) => {
             data: result,
         });
     } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: error.message || "Something went wrong",
-            error: error,
-        });
+        next(error);
     }
 };
 

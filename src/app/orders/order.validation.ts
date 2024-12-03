@@ -7,8 +7,8 @@ const orderValidationSchema = z.object({
         .min(1, "Email is required"),
     product: z.string().min(1, "Product is required"),
     quantity: z
-        .number()
-        .min(1, "Quantity at least 1")
+        .number({invalid_type_error: "Quantity must be a number"})
+        .min(1, "Quantity can't be less than 0")
         .refine(
             (value) => Number.isInteger(value),
             "Quantity must be an integer"

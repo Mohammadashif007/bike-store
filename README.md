@@ -13,10 +13,10 @@ A backend application design for manage bike Order, Inventory and calculate reve
 ## Technology Used:
 
 - **Backend:** Node.js, Express
-- **Database:** MongoDB, Mongoose(ODM) 
+- **Database:** MongoDB, Mongoose(ODM)
 - **Validation:** Zod -**Language:** TypeScript
 
-***
+---
 
 ## Setup Instruction:
 
@@ -30,14 +30,15 @@ Ensure the following software installed on your system
 - MongoDB
 - Git
 
-***
+---
 
 2. **Clone the repository**
 
 `git clone https://github.com/Mohammadashif007/bike-store
  cd bike-store
 `
-***
+
+---
 
 3. **Install Dependencies**
 
@@ -45,7 +46,7 @@ Run the following command to install all necessary dependencies
 
 `npm install`
 
-***
+---
 
 4. **Environment Variables**
 
@@ -54,7 +55,7 @@ Create a .env file and add the following:
 `PORT=3000
 DATABASE_URL=mongodb+srv://ashif03:ashif03@cluster0.epw2d.mongodb.net/bike-shop?retryWrites=true&w=majority&appName=Cluster0`
 
-***
+---
 
 5. **Run the Application**
 
@@ -62,7 +63,7 @@ Start the development server
 
 `npm run start:dev`
 
-***
+---
 
 6. **API Endpoints**
 
@@ -70,10 +71,10 @@ Start the development server
 
 **_Add a new bikes_**
 
--   Endpoint: `/api/products`
--   Method: `POST`
--   Request Body:
-    `{
+- Endpoint: `/api/products`
+- Method: `POST`
+- Request Body:
+  `{
   "name": "Xtreme Mountain Bike",
   "brand": "Giant",
   "price": 1200,
@@ -83,62 +84,57 @@ Start the development server
   "inStock": true
 }`
 
-
 **_Retrieve all bikes_**
 
 - Endpoint: `/api/bikes`
 - Method: `GET`
 
-***Retrieve a single bikes***
+**_Retrieve a single bikes_**
 
 - Endpoint: `/api/bikes/:bikeId`
 - Method: `GET`
 
-***Update bike details***
+**_Update bike details_**
 
 - Endpoint: `/api/bikes/:bikeId`
 - Method: `PUT`
 
-***Delete a bike***
+**_Delete a bike_**
 
 - Endpoint: `/api/bikes/:bikeId`
 - Method: `Delete`
 
-
 **Order**
 
-***Place an Order***
+**_Place an Order_**
 
 - Endpoint: `/api/orders`
 - Method: `POST`
-- Request body: 
-`
-{
+- Request body:
+  `{
     "email": "customer@example.com",
     "product": "bikeId",
     "quantity": 2,
     "totalPrice": 2400
-}
-`
+}`
 
-***Retrieve all orders***
+**_Retrieve all orders_**
 
 - Endpoint: `/api/orders`
 - Method: `GET`
 
-***Calculate total revenue***
+**_Calculate total revenue_**
 
 - Endpoint: `/api/orders/revenue`,
 - Method: `GET`
 
-***
-
+---
 
 ## Contact
 
-For inquiries or feedback please contact with me: 
+For inquiries or feedback please contact with me:
 
 - Email: mohammadashif.anik2@gamil.com
 - github: Mohammadashif007
 
-***
+---

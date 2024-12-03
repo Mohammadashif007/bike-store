@@ -2,6 +2,8 @@
 
 A backend application design for manage bike Order, Inventory and calculate revenue using TypeScript, Mongoose, Express and MongoDB.
 
+## Live Link `https://assignment-2-six-sand.vercel.app/`
+
 ## Features
 
 - **Bike Inventory Management:** Add, update, retrieve and delete bike details.

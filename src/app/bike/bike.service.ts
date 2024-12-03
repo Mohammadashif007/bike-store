@@ -21,9 +21,7 @@ const getSingleBikeFromDB = async (id: string) => {
 
 // ! update data
 const updateDataIntoDB = async (id: string, data: Partial<TBike>) => {
-    console.log(id);
     const result = await Bike.findByIdAndUpdate(id, data, { new: true });
-    console.log(result);
     return result;
 };
 
@@ -60,5 +58,5 @@ export const BikeServices = {
     getSingleBikeFromDB,
     updateDataIntoDB,
     deleteDataFromDB,
-    updateInventory
+    updateInventory,
 };

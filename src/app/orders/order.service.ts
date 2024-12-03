@@ -1,11 +1,13 @@
 import { TOrders } from "./orders.interface";
 import { Order } from "./orders.model";
 
+// ! order creation in database
 const createOrderIntoDB = async (data: TOrders) => {
     const result = await Order.create(data);
     return result;
 };
 
+// ! get all orders from database
 const getAllOrdersFromDB = async () => {
     const orders = await Order.find();
     return orders;

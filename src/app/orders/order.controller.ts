@@ -3,7 +3,7 @@ import { OrderServices } from "./order.service";
 import { BikeServices } from "../bike/bike.service";
 import orderValidationSchema from "./order.validation";
 
-// ! create an orders
+// ! create an order
 const createOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { order } = req.body;
